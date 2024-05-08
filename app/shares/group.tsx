@@ -1,33 +1,55 @@
-import { Children } from "react";
 import {
-  Industry,
   IndustryRU,
+  N_COLUMNS,
   SHARES_INFO_NAMES,
 } from "../shared/lib/definitions";
 import { TICKERS } from "../shared/lib/tickers";
-import { colorize } from "../shared/lib/utils";
+import Sector from "./sector";
+import { getRelativeGroupScales } from "../shared/lib/utils";
 
-// export default function Group({ info }: { info: any }) {
 export default function Group({
-  info,
+  data,
   name,
-  children,
+  groupId,
 }: {
-  info?: any;
+  data?: any;
   name: string;
-  children: string;
+  groupId: number;
 }) {
-  // const name = info[SHARES_INFO_NAMES.SECID];
-  // const delta = info[SHARES_INFO_NAMES.LASTTOPREVPRICE];
-  // const volume = info[SHARES_INFO_NAMES.VALTODAY_RUR];
-  // const current = info[SHARES_INFO_NAMES.LAST];
   const id = Number(name);
+
+  const groupData: [] = data.filter(
+    (el: any) =>
+      TICKERS[el[SHARES_INFO_NAMES.SECID]]?.industry?.toString() == name
+  );
+
+  const groupScales = getRelativeGroupScales(
+    groupData,
+    SHARES_INFO_NAMES.SECID,
+    SHARES_INFO_NAMES.VALTODAY,
+    N_COLUMNS
+  );
+
+  groupData.sort(
+    (a, b) =>
+      groupScales[b[SHARES_INFO_NAMES.SECID]] -
+      groupScales[a[SHARES_INFO_NAMES.SECID]]
+  );
+
   return (
-    <div className="w-64 hover:border hover:border-white">
-      <div className="bg-slate-500">{IndustryRU[id]}</div>
-      <div className="flex flex-wrap items-center border border-black ">
-        {Children.map(children, (child) => (
-          <>{child}</>
+    <div className="px-2 py-1 text-base flex w-full">
+      <div className="w-48 mr-4 bg-slate-500 flex text-center shrink-0 items-center justify-center">
+        {IndustryRU[id]}
+      </div>
+      <div className="w-full flex flex-wrap gap-4 border border-black block">
+        {groupData.map((el: any, index: number) => (
+          <Sector
+            key={el[SHARES_INFO_NAMES.SECID]}
+            info={el}
+            sectorId={index}
+            groupId={groupId}
+            groupScales={groupScales}
+          />
         ))}
       </div>
     </div>

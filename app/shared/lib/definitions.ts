@@ -1,11 +1,16 @@
+export const N_COLUMNS = 12; // допустимые значения 1...12
+
 export const enum SHARES_INFO_NAMES {
-  SECID = "SECID",
-  OPEN = "OPEN", //Цена первой сделки
+  ISSUECAPITALIZATION = "ISSUECAPITALIZATION", //Текущая капитализация акции
   LAST = "LAST", //Цена последней сделки
-  WAPRICE = "WAPRICE", // Средневзвешенная цена
   LASTTOPREVPRICE = "LASTTOPREVPRICE", //Изменение цены последней сделки к последней цене предыдущего дня, %
+  NUMTRADES = "NUMTRADES", //Количество сделок за торговый день
+  OPEN = "OPEN", //Цена первой сделки
+  SECID = "SECID",
   VOLTODAY = "VOLTODAY", //Объем совершенных сделок, выраженный в единицах ценных бумаг
+  VALTODAY = "VALTODAY", //Объем совершенных сделок, в валюте рассчетов
   VALTODAY_RUR = "VALTODAY_RUR", //Объем совершенных сделок, рублей
+  WAPRICE = "WAPRICE", // Средневзвешенная цена
 }
 
 export enum EndPoints {
@@ -71,21 +76,22 @@ interface Company {
   industry?: Industry;
 }
 
+export interface StrNumObj {
+  [key: string]: number;
+}
+
 export enum Industry {
   "OilGas",
   "Financial",
   "IndustrialsFarm",
   "IndustrialsMachinery",
   "IndustrialsOther",
-  "Tech",
   "Telecom Services",
   "Transport",
-  "SoftwareApplication",
   "Retail",
   "BasicMaterialsBlack",
   "BasicMaterialsColor",
   "BasicMaterialsGold",
-  "BasicMaterialsBuildingMats",
   "BasicMaterialsMining",
   "BasicMaterialsChemicals",
   "BasicMaterialsSpecialtyChemicals",
@@ -105,15 +111,12 @@ export const IndustryRU: { [key: number]: string } = {
   [Industry.OilGas]: "Нефтегаз",
   [Industry.Financial]: "Финансы",
   [Industry.IndustrialsFarm]: "АгроПром и Пищепром",
-  [Industry.Tech]: "Технологии",
   [Industry["Telecom Services"]]: "Телеком",
   [Industry.Transport]: "Транспорт",
-  [Industry.SoftwareApplication]: "Разработка ПО",
   [Industry.Retail]: "Розница",
   [Industry.BasicMaterialsBlack]: "Черная мет.",
   [Industry.BasicMaterialsColor]: "Цветная мет.",
   [Industry.BasicMaterialsGold]: "Золото",
-  [Industry.BasicMaterialsBuildingMats]: "Стройматериалы",
   [Industry.Banks]: "Банки",
   [Industry.BasicMaterialsMining]: "Горнодобывающие",
   [Industry.BasicMaterialsChemicals]: "Химия удобрения",

@@ -177,9 +177,14 @@ export const getTreemap = ({
 
   validateArguments({ data, width, height });
 
-  const totalValue = data
+  let totalValue = data
     .map((dataPoint) => dataPoint.value)
     .reduce(sumReducer, 0);
+
+  //exclude values less than 1% and recalculate
+  //data = data.filter((dataPoint) => (dataPoint.value / totalValue) * 100 > 1);
+  //totalValue = data.map((dataPoint) => dataPoint.value).reduce(sumReducer, 0);
+
   const dataScaled = data.map(
     (dataPoint) => (dataPoint.value * height * width) / totalValue
   );
