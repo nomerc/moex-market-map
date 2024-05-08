@@ -115,6 +115,7 @@ export const TICKERS: Ticker = {
   MAGE: { name: "МагадЭн ао", industry: Industry.Energy },
   MAGEP: { name: "МагадЭн ап", industry: Industry.Energy },
   MAGN: { name: "ММК", industry: Industry.BasicMaterialsBlack },
+  MBNK: { name: "МТС-банк", industry: Industry.Banks },
   MDMG: { name: "MDMG-гдр", industry: Industry.Consumer },
   MFGS: { name: "Мегион-ао", industry: Industry.OilGas },
   MFGSP: { name: "Мегион-ап", industry: Industry.OilGas },
